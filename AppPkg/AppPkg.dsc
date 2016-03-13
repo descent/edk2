@@ -43,6 +43,7 @@
 [PcdsFixedAtBuild.IPF]
 
 [LibraryClasses]
+  GcppLib|GcppPkg/Library/GcppLib.inf
   #
   # Entry Point Libraries
   #
@@ -105,6 +106,7 @@
 ###################################################################################################
 
 [Components]
+  GcppPkg/test/testcpp.inf
 
 #### Sample Applications.
   AppPkg/Applications/Hello/Hello.inf        # No LibC includes or functions.
