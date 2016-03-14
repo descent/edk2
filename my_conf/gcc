@@ -1,0 +1,24 @@
+#!/bin/sh
+# the script is for build c++ program
+# if file ext name is cpp, call g++,
+# else call gcc.
+# put it ~/bin/
+# export PATH=~/bin:$PATH
+
+org_fn="aa"
+
+for last; do true; done
+org_fn=$last
+
+echo "org_fn: $org_fn"
+
+ext="${org_fn##*.}"
+
+if [ "$ext" == "cpp" ]; then
+  echo g++
+  /usr/bin/g++ -fno-exceptions -fno-rtti -ffreestanding -nostdlib -nodefaultlibs -std=c++11 $@
+else
+  echo gcc
+  /usr/bin/gcc $@
+fi
+
