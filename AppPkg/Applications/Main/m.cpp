@@ -1,36 +1,7 @@
-/** @file
-    A simple, basic, application showing how the Hello application could be
-    built using the "Standard C Libraries" from StdLib.
-
-    Copyright (c) 2010 - 2011, Intel Corporation. All rights reserved.<BR>
-    This program and the accompanying materials
-    are licensed and made available under the terms and conditions of the BSD License
-    which accompanies this distribution. The full text of the license may be found at
-    http://opensource.org/licenses/bsd-license.
-
-    THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
-    WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
-**/
-//#include  <Uefi.h>
-//#include  <Library/UefiLib.h>
-//#include  <Library/ShellCEntryLib.h>
-
-#include  <stdio.h>
-
-/***
-  Demonstrates basic workings of the main() function by displaying a
-  welcoming message.
-
-  Note that the UEFI command line is composed of 16-bit UCS2 wide characters.
-  The easiest way to access the command line parameters is to cast Argv as:
-      wchar_t **wArgv = (wchar_t **)Argv;
-
-  @param[in]  Argc    Number of argument tokens pointed to by Argv.
-  @param[in]  Argv    Array of Argc pointers to command line tokens.
-
-  @retval  0         The application exited normally.
-  @retval  Other     An error occurred.
-***/
+#include  "myvec.h"
+#include  "myiostream.h"
+#include "my_setjmp.h"
+using namespace DS;
 
 class Obj
 {
@@ -38,26 +9,57 @@ class Obj
     Obj()
     {
       i=10;
-      puts("ctor\n");
+      ::printf("ctor\n");
     }
     ~Obj()
     {
-      puts("dtor\n");
+      ::printf("dtor\n");
     }
   private:
     int i;
 };
-int
-main (
-  IN int Argc,
-  IN char **Argv
-  )
+
+jmp_buf jbuf;
+
+int lambda_test(int girls = 3, int boys = 4)
+{
+  auto totalChild = [](int x, int y) ->int{return x+y;};
+  return totalChild(girls, boys);
+}
+
+int main (IN int Argc, IN char **Argv)
 {
   Obj obj;
 
-  puts("uefi test c++ local obj ctor/dtor\n");
-  //puts("Hello there fellow Programmer.");
-  //puts("Welcome to the world of EDK II.");
+  int total = lambda_test();
+  cout << "total: " << total << endl;
 
+  vector<int> vec_i;
+
+  vec_i.push_back(1);
+  vec_i.push_back(2);
+  vec_i.push_back(3);
+  for (int i=0 ; i < vec_i.size() ; ++i)
+    cout << vec_i[i] << endl;
+
+  char *area = (char*)mymalloc(20);
+  char *a1 = new char [20];
+
+  int j_ret = 9;
+  //printf("aaa\n");
+  //getchar();
+  j_ret = my_setjmp(jbuf);
+
+  if (j_ret == 0)
+  {
+    printf("00\n");
+  }
+  else 
+  {
+    printf("11\n");
+    return 0;
+  }
+
+  my_longjmp(jbuf, 5);
   return 0;
 }
