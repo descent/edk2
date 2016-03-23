@@ -1,4 +1,5 @@
 #!/bin/sh
+# UEFI原理与编程 gcc script for use g++
 iscpp=0
 for i in "$@" ; do
   if [ "-" != "${i:0:1}" ] ; then
