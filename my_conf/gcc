@@ -16,9 +16,9 @@ ext="${org_fn##*.}"
 
 if [ "$ext" == "cpp" ]; then
   echo g++
-  /usr/bin/g++ -fno-exceptions -fno-rtti -ffreestanding -nostdlib -nodefaultlibs -std=c++11 $@
+  /usr/bin/g++ -DUEFI -fpermissive -I. -DSTM32 -fno-exceptions -fno-rtti -ffreestanding -nostdlib -nodefaultlibs -std=c++11 $@
 else
   echo gcc
-  /usr/bin/gcc $@
+  /usr/bin/gcc -DUEFI $@
 fi
 
