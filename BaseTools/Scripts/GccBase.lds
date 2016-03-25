@@ -57,6 +57,14 @@ SECTIONS {
     *(.rela .rela.*)
   }
 
+  init_array :
+  {
+    __start_global_ctor__ = .;
+    *(.init_array .init_array*)
+    __end_global_ctor__ = .;
+  }
+
+
   /DISCARD/ : {
     *(.note.GNU-stack)
     *(.gnu_debuglink)
