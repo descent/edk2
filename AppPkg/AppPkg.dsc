@@ -109,6 +109,7 @@
   GcppPkg/test/testcpp.inf
   GcppPkg/Library/GcppLib.inf
   AppPkg/Applications/Main/m.inf          # Simple invocation. No other LibC functions.
+  AppPkg/Applications/Main/s.inf          # scheme
 
 #### Sample Applications.
   AppPkg/Applications/Hello/Hello.inf        # No LibC includes or functions.
